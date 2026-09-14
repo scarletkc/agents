@@ -436,69 +436,14 @@
       "files": []
     },
     {
-      "id": 33,
-      "name": "social-survey-reader-value",
-      "prompt": "根据下面的虚构调查材料写条短推文，给会用 AI、但不一定写代码的读者看。2000 名受访开发者中，30% 在工作中用 CodeOak，12% 用 DevFinch。主要使用 CodeOak 的人里，24% 把超过八成的代码交给 agent 生成；主要使用 DevFinch 的人里，这个比例是 41%。这是使用习惯问卷，没有测试代码质量，也没统计订阅额度。我的看法是额度可能影响大家愿意交给 AI 多少工作，但还不知道是不是这个原因。",
-      "expected_output": "选择普及程度与大量交给 agent 写代码之间的差异来展开，读者能理解它与自己如何使用 AI 的关系。保留调查口径，将额度原因限定为用户的猜测；无需罗列所有数字、强行提问或给出购买建议。",
+      "id": 38,
+      "name": "voice-only-edit-does-not-restart-x-strategy",
+      "prompt": "Use talk-like-scarletkc only to make this already approved Chinese X post sound more casual: 我找了半天导出按钮，结果发现它在右键菜单里。真没想到。 Preserve the existing point and facts. Do not change the topic or add a thread.",
+      "expected_output": "Return a natural, concise voice edit of the existing post without restarting topic discovery or adding an X content strategy.",
       "assertions": [
-        "说明两种比例对应工作使用率和各工具主要用户中的代码生成习惯，没有混淆分母或据此推断代码质量",
-        "用读者能理解的表达说明 agent 生成代码的含义，保留支撑中心比较的具体数据",
-        "额度影响只作为可能原因，没有编造额度差异、个人使用经历或工具优劣排名",
-        "讨论空间来自调查中有待解释的差异，没有制造阵营冲突、虚假共识或仅补一句泛泛提问",
-        "交付完整短推文，没有额外附上流量预测、评分或选题检查表"
-      ],
-      "files": []
-    },
-    {
-      "id": 34,
-      "name": "social-practical-value-without-forced-debate",
-      "prompt": "帮我写条简短推文介绍这个功能。素材完整：虚构笔记工具 NoteNest 新增恢复未保存草稿，默认关闭，需要在设置中启用，只能恢复启用后创建的草稿。我觉得这个功能挺实用。",
-      "expected_output": "围绕恢复草稿的实际用途写清启用方式和适用限制，保持用户的正面态度。实用信息本身足以成立，不因阅读价值指导而强加争议、排名或提问结尾。",
-      "assertions": [
-        "保留恢复未保存草稿、默认关闭、设置中启用和仅适用于启用后草稿的事实",
-        "读者能据此知道如何开启及不能恢复哪些草稿，没有为简短或吸睛删掉关键限制",
-        "保留用户觉得实用的态度，没有编造丢稿经历、竞争产品缺点或争议",
-        "自然结束，不额外附上评分、讨论题或购买建议"
-      ],
-      "files": []
-    },
-    {
-      "id": 35,
-      "name": "social-thread-reader-impact-before-taxonomy",
-      "prompt": "帮我把下面的虚构产品资料写成一个推文串，给普通 AI 用户看。之前那版把所有模式逐项讲完，太复杂，像文档。主帖要有钩子，技术细节放评论。材料：NotePilot 的在线模式使用账号偏好；本机模式读取本机助手的偏好文件 ~/.notepilot/preferences.json，两套不会自动同步。桌面客户端可以选择任一种模式，所以换模式后可能需要重说自己的偏好。Remote 是远程操作原电脑，独立的 Batch 服务不读取这两套偏好。这些行为都已在本次素材中确认。",
-      "expected_output": "主帖从换模式后可能要重说偏好的具体影响切入，保留必要背景，不先罗列所有模式。评论承接同步边界、路径和 Remote、Batch 的区别，各条可以直接发布。",
-      "assertions": [
-        "主帖围绕用户会遇到的影响形成钩子，没有把完整模式清单、路径和例外塞进去",
-        "评论保留在线与本机两套偏好、桌面可切换模式、Remote 与 Batch 的行为区别",
-        "没有声称历史被删除、永远丢失或所有版本均如此，没有为吸睛编造经历或数据",
-        "各条内容承接推进，不逐条重复主帖或把技术内容全部删掉",
-        "没有正文外的流量预测或写作过程说明"
-      ],
-      "files": []
-    },
-    {
-      "id": 36,
-      "name": "social-confirmed-observation-and-research-boundary",
-      "prompt": "帮我修改这条短推文。旧稿：NotePilot 本机模式似乎和本机助手共用偏好，没查到官方确认。Batch 是否读取偏好还在核对。现在我确认过了：我用的 2.4 桌面版里，本机模式和本机助手就是共用偏好。Batch 我没测过，也没有可靠材料，就别写它。别把你没查到的过程写进推文，给我最终稿。产品是虚构的，材料完整。",
-      "expected_output": "直接按用户确认的版本范围写共享偏好的观察，删除旧稿的检索过程和无依据的 Batch 内容，不把用户观察包装成官方确认或普遍规则。",
-      "assertions": [
-        "清楚表达用户在 2.4 桌面版确认的共用偏好行为，没有反复要求用户再确认或把已确认结果写回猜测",
-        "保留版本或本次观察范围，没有推广到所有设备和版本，也没有伪造官方背书",
-        "没有没查到、还在核对、暂未找到官方确认等助手检索过程",
-        "删除 Batch 的未知内容，没有将未确认改成不支持或不读取的否定结论"
-      ],
-      "files": []
-    },
-    {
-      "id": 37,
-      "name": "social-research-process-outside-draft",
-      "prompt": "根据完整的虚构素材写一条短推文，有会影响读者使用的限制要保留。NotePilot 2.4 新增恢复未保存草稿，默认关闭，需要在设置中打开，只恢复开启后创建的草稿。我觉得挺实用。助手之前查资料时没找到离线恢复是否支持，这只是检索过程，我没要求介绍离线功能，也没亲自测试过。",
-      "expected_output": "介绍恢复草稿的实际用途、开启方式和范围，省去无关的检索过程；清理过程说明不应连同真正的功能限制一起删掉。",
-      "assertions": [
-        "保留默认关闭、设置中开启、仅恢复开启后草稿这三个实际限制",
-        "没有把离线支持的未知写成不支持离线，也没有为此加入检索免责声明",
-        "没有编造用户丢稿、找回草稿或亲自实测的经历",
-        "输出适合直接发布，保持用户认为实用的态度"
+        "Preserves the export button, the right-click menu, and the author's surprise without invented product details",
+        "Adjusts language and rhythm without a new argument, manufactured hook, thread, or generic engagement question",
+        "Does not start news research, ask for audience analytics, or append editorial process"
       ],
       "files": []
     }

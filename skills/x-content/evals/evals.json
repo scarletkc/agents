@@ -1,0 +1,267 @@
+{
+  "skill_name": "x-content",
+  "evals": [
+    {
+      "id": 1,
+      "name": "social-survey-reader-value",
+      "prompt": "Write a Chinese X post from this complete fictional survey for people who use AI but may not write code. Of 2,000 surveyed developers, 30% use CodeOak at work and 12% use DevFinch. Among primary CodeOak users, 24% delegate more than 80% of their code to an agent; among primary DevFinch users, the figure is 41%. This is a usage survey, not a code-quality test, and it does not measure subscription quotas. My view: quotas might affect how much work people delegate, but I do not know whether that explains the difference.",
+      "expected_output": "Write a Chinese post around the difference between tool adoption and how much coding people delegate. Preserve survey denominators and keep the author's quota explanation as a hypothesis.",
+      "assertions": [
+        "Distinguishes workplace adoption from coding habits among each tool's primary users; does not infer code quality from either measure",
+        "Uses concrete supporting figures and explains their relevance for readers without assuming programming knowledge",
+        "Does not invent quota differences, personal testing, a product ranking, or a causal explanation",
+        "Leaves room for discussion through the observed difference without manufacturing conflict or consensus",
+        "Delivers a complete, directly usable draft without an editorial checklist"
+      ],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "social-practical-value-without-forced-debate",
+      "prompt": "Write a short Chinese X post for people who have not heard of NoteNest. Complete fictional material: NoteNest is a note-taking app. It can now recover unsaved drafts after accidentally closing the editor. The feature is off by default, must be enabled in settings, and can recover only drafts created after activation. I think the feature is useful.",
+      "expected_output": "Write a short Chinese feature post introducing NoteNest and explaining the supplied recovery scenario, activation, and scope while retaining the author's positive attitude.",
+      "assertions": [
+        "Identifies NoteNest as a note-taking app and connects draft recovery to accidentally closing the editor, so an unfamiliar reader understands the feature",
+        "Preserves recovery of unsaved drafts, the disabled default, activation in settings, and coverage of drafts created only after activation",
+        "Does not remove a condition for brevity or attention",
+        "Does not invent lost-draft experiences, competitor faults, or controversy",
+        "Ends naturally without requiring a debate, a generic question, or purchasing advice"
+      ],
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "social-thread-reader-impact-before-taxonomy",
+      "prompt": "Write a Chinese X thread for ordinary AI users using this complete fictional material. The earlier version listed all modes and felt too complicated, like documentation. Give the main post a hook and place technical details in replies. NotePilot online mode uses account preferences. Local mode reads the local assistant's ~/.notepilot/preferences.json. The two do not sync automatically. The desktop app can use either mode, so changing modes may require repeating preferences. Remote controls the original computer remotely. The separate Batch service reads neither preference source. All of these behaviors are confirmed in this exercise.",
+      "expected_output": "Write a Chinese thread led by the reader's possible need to repeat preferences after changing modes, with supporting technical details in replies.",
+      "assertions": [
+        "The main post identifies the relevant product behavior without opening with a complete mode taxonomy or filesystem path",
+        "Replies preserve separate online and local preferences, desktop mode choice, the local path, and the distinct Remote and Batch behavior",
+        "Does not claim history was deleted or permanently lost, generalize to all versions, or invent personal experience",
+        "Each reply advances the explanation rather than repeating the main post or removing all technical substance",
+        "Delivers publishable posts without writing-process notes"
+      ],
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "social-confirmed-observation-and-research-boundary",
+      "prompt": "Revise this short Chinese X post. Old draft: NotePilot local mode seems to share preferences with the local assistant, but I have not found official confirmation. I am still checking whether Batch reads preferences. New information from me: I confirmed that local mode and the local assistant share preferences in the 2.4 desktop version I use. I have not tested Batch and have no reliable source for it, so omit Batch. Do not include your missing-documentation process in the post. Give me the final text. The product is fictional and the supplied material is complete.",
+      "expected_output": "Revise the Chinese post to state the user's confirmed observation within the supplied version and environment, removing obsolete research notes and unsupported Batch content.",
+      "assertions": [
+        "States the confirmed shared preferences in the 2.4 desktop local mode without asking for redundant confirmation or weakening it back to speculation",
+        "Preserves the observed scope without inventing official confirmation or extending the finding to every device and version",
+        "Excludes the assistant's missing-documentation and pending-check notes from the draft",
+        "Removes unknown Batch behavior without turning it into a negative product claim"
+      ],
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "social-research-process-outside-draft",
+      "prompt": "Write a Chinese X post from this complete fictional material, retaining limitations that affect readers. NotePilot 2.4 adds recovery of unsaved drafts, disabled by default. It must be enabled in settings and covers only drafts created after activation. I think it is useful. Earlier, the assistant could not find whether offline recovery is supported; that is only retrieval history. I did not ask to cover offline functionality and have not tested it myself.",
+      "expected_output": "Write a Chinese feature post preserving real activation and scope limitations while excluding unrelated retrieval history.",
+      "assertions": [
+        "Preserves the disabled default, settings activation, and recovery only for drafts created after activation",
+        "Does not claim offline recovery is unsupported merely because the assistant did not find it",
+        "Does not fabricate the author's lost drafts, successful recoveries, or personal testing",
+        "Delivers a usable final post that retains the author's view that the feature is practical"
+      ],
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "discover-fresh-evidence-and-reader-fit",
+      "prompt": "Use x-content to suggest up to three X topics for people using AI coding tools. This is an offline exercise on 2026-04-12; use only these complete fictional sources. A: https://example.org/patchpad/release-24, published April 11, says PatchPad 2.4 now shows the permissions an agent requests before execution; desktop only. B: https://example.org/roundup, published April 12, repeats A with no new evidence. C: https://example.org/patchpad/roadmap, published April 12, says mobile support is planned without a date. D: https://example.org/old-demo, published January 4, describes a prototype of permission previews. E: a celebrity giveaway has many likes but no relation to these readers. Find things worth posting; do not draft a full post yet.",
+      "expected_output": "Recommend the recent desktop permission preview as the strongest topic and explain the reader impact with its primary link and date. Avoid padding the list with duplicate coverage or unrelated popularity.",
+      "assertions": [
+        "Distinguishes the April release from the January prototype and the undated future mobile plan",
+        "Treats A and B as coverage of one event rather than independent confirmation or distinct topics",
+        "Explains what readers gain from knowing about permission previews and retains the desktop scope",
+        "Does not choose the unrelated giveaway merely for its likes or pretend the prototype just launched",
+        "Provides ranked topic advice rather than an unrequested finished opinion post; uses no live network for fictional fixtures"
+      ],
+      "files": []
+    },
+    {
+      "id": 7,
+      "name": "discovery-with-inaccessible-primary-source",
+      "prompt": "Use x-content to find something worth posting for developers from these results. This is an offline fictional exercise; there is no access to X or a live browser. A search snippet from https://example.org/snippet claims a new model fixes every production bug. Its linked original cannot be opened. Two aggregators copy the same claim. No publication date, benchmark, or original announcement is available. Give me a useful result from this evidence.",
+      "expected_output": "Return an unverified lead and identify the missing original evidence before recommending it as established news.",
+      "assertions": [
+        "Does not claim it read the inaccessible original, scanned live X, or checked a trend leaderboard",
+        "Does not treat copied reports as independent evidence or fabricate an event date or benchmark",
+        "Does not produce a confident post promising the model fixes production bugs",
+        "Identifies the specific evidence needed to make the lead usable and does not pad the result with invented topics"
+      ],
+      "files": []
+    },
+    {
+      "id": 8,
+      "name": "reader-reread-restructures-the-middle",
+      "prompt": "Use x-content to rewrite this complete fictional material as a Chinese X post with a supporting reply. Readers use AI tools but do not know their internal modes. My draft loses people halfway through; it reads like documentation. Draft: MemoDesk has Hosted, Local, Remote, and Queue modes. Hosted reads account preferences. Local reads ~/.memodesk/prefs.json. Remote controls the same computer. Queue reads neither preferences source. Hosted and Local do not sync preferences. The desktop app supports Hosted and Local. Therefore when you change modes you may have to repeat your preferences. All this behavior is confirmed in the supplied material. Give the complete revised text.",
+      "expected_output": "Reorganize the post around the reader-visible effect of changing modes and move implementation classification to a useful supporting reply, after an internal reader reread.",
+      "assertions": [
+        "The main post leads with a concrete effect readers can understand and identifies MemoDesk rather than listing modes first",
+        "Retains the separate preference sources and lack of sync without implying all settings or chat history are lost",
+        "The supporting reply explains mode differences and the local path coherently instead of repeating the hook",
+        "Improves information selection and order rather than merely changing punctuation or adding line breaks",
+        "Supplies complete copy without the internal reread table"
+      ],
+      "files": []
+    },
+    {
+      "id": 9,
+      "name": "localized-final-edit-preserves-thread-and-links",
+      "prompt": "Use x-content for one correction to my fictional X thread, and give the final complete version. Main: NotePilot 2.3 切到本机模式后，可能要重新说一遍自己的偏好。 Reply: 在线和本机是两套偏好，不会自动同步。 Sources reply: NotePilot release notes https://example.org/notepilot/release . Correct only the version to 2.4, keep links exclusively in the sources reply, and preserve the current tone and order. The supplied material is complete.",
+      "expected_output": "Return the full thread with only the requested version correction and the existing link placement.",
+      "assertions": [
+        "Corrects 2.3 to 2.4 without redesigning the hook, introducing features, or restoring older research notes",
+        "Returns all three parts in the supplied order",
+        "Keeps the full visible URL only in the sources reply, with labels outside the copy"
+      ],
+      "files": []
+    },
+    {
+      "id": 10,
+      "name": "missing-author-stance-is-not-editorial-license",
+      "prompt": "Use x-content to write a strong first-person Chinese X opinion post in my voice. The entire fictional source says CodeLake added voice input and TypeHarbor added a keyboard shortcut. I have not told you which I use, what I prefer, or what I think of either change. Choose my stance for maximum engagement.",
+      "expected_output": "Ask one concrete question about the author's preference or intended judgment before inventing a first-person opinion; factual angles may be offered outside a personal draft.",
+      "assertions": [
+        "Does not fabricate usage, preference, testing, anger, or enthusiasm",
+        "Asks for the missing core stance rather than a long marketing questionnaire",
+        "Distinguishes the assistant's editorial topic judgment from the author's personal opinion",
+        "Does not manufacture a product rivalry to satisfy the engagement request"
+      ],
+      "files": []
+    },
+    {
+      "id": 12,
+      "name": "hook-retains-qualifier-and-delivers-payoff",
+      "prompt": "Use x-content to improve this Chinese X hook and write a thread from complete fictional data: LabLeaf never loses your instructions. Evidence: in a single 20-task local experiment, it retained one explicit output-format rule through five turns in 18 tasks. No long-project or cross-session behavior was tested. Put all limitations in the final reply so the hook has more impact.",
+      "expected_output": "Make the opening accurate within the supplied experiment and let the thread explain the concrete result and conditions.",
+      "assertions": [
+        "Does not leave an absolute never-forgets claim in the main post and rely on a later correction",
+        "Keeps enough experiment scope in the main post to prevent a universal-capability interpretation",
+        "Preserves 18 of 20, the output-format rule, and five turns in the thread without fabricating long-project tests",
+        "Later replies deliver evidence promised by the opening rather than repeatedly appending identical disclaimers"
+      ],
+      "files": []
+    },
+    {
+      "id": 14,
+      "name": "same-topic-followup-needs-new-value",
+      "prompt": "Use x-content to choose a follow-up X topic from complete fictional material. Yesterday I already posted that MemoDesk online and local preferences do not sync. Option A repeats the same fact with a more dramatic opening and another equivalent example. Option B adds newly confirmed maintainer instructions for manually exporting online preferences and importing them into local mode in desktop 2.4; this is not automatic sync. Which should I post as a new discovery, and in what form? I only want topic advice.",
+      "expected_output": "Recommend the new manual transfer information as a useful follow-up or quote supplement to the earlier post, retaining the scope and manual process.",
+      "assertions": [
+        "Identifies that option A lacks a new finding despite a different opening or equivalent example",
+        "Explains what option B adds relative to the author's existing post",
+        "Does not present manual export and import as automatic synchronization or invent an unsupported broader feature",
+        "Offers a suitable continuation form without writing an unrequested personal draft or publishing anything",
+        "Does not claim to have inspected the author's account beyond the supplied recent-post information"
+      ],
+      "files": []
+    },
+    {
+      "id": 15,
+      "name": "thread-removes-repeated-qualifier-endings",
+      "prompt": "Revise this Chinese X thread so it reads naturally and the endings stop interrupting the flow. Keep three posts and preserve the product facts. This is a complete fictional exercise; no external research is needed. Main: NoteNest 2.4 桌面版新增恢复未保存草稿，默认关闭，要先在设置打开。我觉得挺实用。不过只适用于这个版本，其他版本还不知道。 Reply 1: 它只能恢复开启后创建的草稿，之前的旧草稿不在范围里。不过只适用于这个版本，其他版本还不知道。 Reply 2: 可以在设置里的草稿页查看能恢复的内容，选中后点恢复就行。不过只适用于这个版本，其他版本还不知道。",
+      "expected_output": "Return three coherent Chinese posts that retain the version and recovery conditions while removing the repeated version-uncertainty footer.",
+      "assertions": [
+        "Preserves NoteNest desktop version 2.4, the disabled default, activation in settings, recovery only for drafts created after activation, and the supplied recovery steps",
+        "The main post makes the scope of recovery clear enough that later replies do not have to correct a misleading opening",
+        "Removes the repeated uncertainty footer instead of paraphrasing it at the end of every post or stacking duplicate caveats in one closing paragraph",
+        "Each reply advances the explanation and the final response contains usable copy rather than an editing report",
+        "Retains the author's positive view without inventing universal recovery, other-version behavior, personal testing, or lost-draft experiences"
+      ],
+      "files": []
+    },
+    {
+      "id": 16,
+      "name": "reader-understands-review-comments-without-developer-context",
+      "prompt": "Use x-content to rewrite this confusing Chinese X draft for people who use chat AI but do not know software development. Draft: AI review 留下一句这里可能有问题，接下来谁负责证明？CodeBirch 扩充了 shell 工具，可以跑构建、测试和针对性脚本。实验里严重问题更多，小毛病更少。我期待的评论是：这个输入会触发 bug，这是我跑出来的结果。开发者就少一轮替 reviewer 验证猜测。 Complete fictional facts: CodeBirch checks programmers' code changes and leaves problems and suggestions for those programmers. The old version analyzed code text. The new version can run tests and targeted checks to verify suspected problems using actual execution results. In the vendor's comparison on the same code changes, the new version found more severe problems and raised fewer minor style issues than the old version. The author's supplied view is that seeing reproduction evidence alongside a reported problem would save programmers verification work. There is no concrete bug example or claim that every comment now contains reproduction evidence. No research is needed.",
+      "expected_output": "Produce a self-contained Chinese post whose reader can explain what the AI checks, who receives its findings, how running checks helps, and what changed. Integrate the necessary scene with the news instead of adding a repetitive introduction.",
+      "assertions": [
+        "A reader can identify from the post itself that the AI checks code changes for programmers and that comments are its findings or suggestions, rather than social-media replies",
+        "Explains how actual execution helps verify suspected problems instead of relying on shell, review, or testing jargon alone",
+        "If the experiment is included, identifies the new-versus-old comparison rather than leaving more and fewer without a reference point",
+        "Any retained expectation or illustrative comment connects to the AI's findings and the programmer's verification work; the reader need not infer the speaker or recipient",
+        "The post's useful change is supported by concrete behavior without repeated more-tools announcements or invented bug examples",
+        "Reader evaluation paraphrases the post using only its text and flags relationships supplied from outside knowledge instead of issuing a generic readability approval"
+      ],
+      "files": []
+    },
+    {
+      "id": 17,
+      "name": "reader-context-transfers-without-a-redundant-caveat-ending",
+      "prompt": "Use x-content to write a Chinese X post for ordinary note-app users from complete fictional material. When a phone and computer edit the same MemoNest note concurrently, the old version keeps only the last uploaded version and may overwrite the other device's changes. The new version keeps both versions, highlights differing paragraphs, and lets the user choose which changes to retain. The app does not determine which text is correct. No personal experience is supplied. No research is needed.",
+      "expected_output": "Write a relatable, self-contained post around keeping changes from both devices and choosing what to retain, with a natural ending.",
+      "assertions": [
+        "The reader can understand the simultaneous-editing situation, the old overwrite behavior, and the new way to retain changes from the post alone",
+        "Explains the benefit through the concrete change without requiring knowledge of synchronization or conflict-resolution terminology",
+        "Keeps user choice clear without changing the subject from retaining desired changes to deciding which of two versions is correct",
+        "Ends when the useful explanation is complete rather than repeating user choice as a capability-warning footer",
+        "Does not invent personal lost-note experiences or automatic merging",
+        "Reader evaluation identifies a specific point of interest and any sentence where understanding or interest breaks, rather than approving the post based only on fluent wording"
+      ],
+      "files": []
+    },
+    {
+      "id": 18,
+      "name": "selective-conditions-preserve-how-spoiler-hiding-works",
+      "prompt": "Use x-content to write a Chinese X post for people who want to discuss a show before finishing it without seeing later plot details. Complete fictional material: SceneChat discussions previously carried only a whole-show label. Users could encounter later plot details while still partway through the show. The new version lets readers set their current episode. Authors label discussion posts with the episode they cover. Posts beyond a reader's progress are covered, and the reader can still click to reveal them. The system uses episode labels; it does not understand the text to detect spoilers. No personal experience is supplied. No research is needed.",
+      "expected_output": "Write a relatable post that explains the new progress-based hiding and its reliance on authors' episode labels as part of the useful explanation.",
+      "assertions": [
+        "Connects the reader's wish to join a discussion with the concrete change in which posts are initially visible",
+        "Makes clear that authors supply the episode labels and readers set their progress, without assuming knowledge of the app",
+        "Preserves the reliance on episode labels because it affects what the feature can hide; does not imply automatic text-based detection or complete spoiler protection",
+        "Explains relevant conditions naturally beside the feature rather than stacking generic disclaimers at the end",
+        "Keeps the option to reveal a covered post and avoids inventing personal viewing experiences"
+      ],
+      "files": []
+    },
+    {
+      "id": 19,
+      "name": "premium-length-follows-context-and-reader-payoff",
+      "prompt": "Use x-content to introduce this update in Chinese to people who take notes but have never heard of FieldNote. I have X Premium. Choose a short post, long post, or thread according to the content; there is no requested length. Complete fictional material: FieldNote is a phone and desktop note app that saves edits offline and uploads them on reconnection. Version 3.2 released today. Previously, when both devices changed the same note offline, the last upload replaced the other version. Version 3.2 keeps both versions, highlights differing paragraphs, and lets the user choose which changes to keep. Supplied illustrative scenario: someone adds interview details on their phone while offline, then rewrites the same note's introduction on their computer before the phone reconnects. Previously one version could replace the other; now both can be compared and the desired changes selected. This is an example, not my personal experience. The feature is enabled by default for new conflicts after updating both devices to 3.2. It cannot restore versions already overwritten before the update. Write the final content. No research is needed.",
+      "expected_output": "Choose a suitable form and give unfamiliar readers enough context to understand the app, the update, and why preserving both devices' work matters. Develop the useful detail through the supplied scenario rather than reducing the post to a feature announcement.",
+      "assertions": [
+        "Introduces what FieldNote does before relying on product-specific behavior to explain the update",
+        "Clearly signals the version 3.2 update and connects old overwrite behavior with the new comparison and selection workflow",
+        "Uses the supplied phone-interview and desktop-introduction scenario to make the practical difference concrete without claiming personal experience",
+        "Retains the update-both-devices and new-conflicts scope where they affect reader understanding; does not imply recovery of already overwritten versions",
+        "Chooses length and form based on explanation and reading flow, without imposing an unrequested short-post limit or automatically splitting long content into a thread",
+        "The reader can explain a concrete takeaway beyond the existence of a new feature; evaluation does not reward shorter output on its own",
+        "Delivers final copy without an editorial report or an unnecessary request to choose the format"
+      ],
+      "files": []
+    },
+    {
+      "id": 20,
+      "name": "personal-feeling-can-land-as-recognition",
+      "prompt": "Use x-content to write a Chinese X post from these supplied first-person notes. My readers are ordinary people who buy gadgets. Choose length and form according to the content. These are the author's complete fictional experiences and feelings for this exercise: I bought an e-reader three weeks ago because I wanted to read more. On the first evening I tried fonts and margins; on the second I organized books into folders. Yesterday I realized I had still been reading on my phone during my commute, while the e-reader stayed in my bag. I find it funny that preparing to read became its own hobby. I am still fond of the device and this is not a claim that e-readers are useless. Write my post, not advice on buying a device or improving reading habits. No research is needed.",
+      "expected_output": "Write a personal post with the author's actual sequence of small actions and self-amusement. Let recognition or humor be the payoff, with no need for product news, a before-and-after feature comparison, or an instructional conclusion.",
+      "assertions": [
+        "Uses the supplied small actions and discovery to express the author's amusement without inventing additional experiences, purchases, or product faults",
+        "Preserves affection for the device without turning it into a defensive disclaimer or a negative product verdict",
+        "Does not reshape the experience into a launch announcement, feature roundup, generic productivity lesson, or purchasing guide",
+        "Lets the concrete personal observation carry interest and allows the post to finish with the feeling rather than requiring a practical action or summary",
+        "Chooses length naturally without padding to look substantial or stripping the details that make the feeling recognizable"
+      ],
+      "files": []
+    },
+    {
+      "id": 21,
+      "name": "familiar-product-does-not-need-a-reintroduction",
+      "prompt": "Use x-content to write a Chinese X post for my followers, who already use NoteNest and know it is a note-taking app. Complete fictional material: today's update can recover unsaved drafts after accidentally closing the editor. The feature is off by default, must be enabled in settings, and can recover only drafts created after activation. I think it is useful. Choose length and form according to the content. No research is needed.",
+      "expected_output": "Get directly to the useful change for existing NoteNest users, explaining the accidental-closure scenario and activation conditions without a general product introduction.",
+      "assertions": [
+        "Uses the supplied reader familiarity rather than spending the opening explaining what NoteNest is",
+        "Explains recovery after accidentally closing the editor, activation in settings, and coverage only for drafts created after activation",
+        "Preserves the author's positive view without inventing personal testing or recovery of previously lost drafts",
+        "Does not expand a simple update into a long post or thread merely because longer formats are available"
+      ],
+      "files": []
+    }
+  ]
+}

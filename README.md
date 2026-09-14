@@ -36,6 +36,7 @@ for the complete activation description and instructions.
 | [talk-like-scarletkc](skills/talk-like-scarletkc/SKILL.md) | Write and translate in scarletkc's natural voice without generic AI phrasing. |
 | [ux-writing](skills/ux-writing/SKILL.md) | Review user-facing copy and documentation for clarity, consistency, facts that do not go stale, and no leftover intermediate state. |
 | [worktree-pr](skills/worktree-pr/SKILL.md) | Optionally run a task in its own worktree: branch from the integration branch, compare against the baseline, and prepare it for a PR. |
+| [x-content](skills/x-content/SKILL.md) | Find worthwhile X topics and write posts that earn attention and keep readers engaged. |
 <!-- skills:end -->
 
 [`product-writing`](skills/product-writing/SKILL.md) is a compact alternative to
