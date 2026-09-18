@@ -147,13 +147,13 @@
     },
     {
       "id": 11,
-      "name": "no-added-metaphor",
-      "prompt": "把这段改成我的口吻：现在的 agent 执行力很强，但方向错了也不会停，会继续做下去，最后 review 的时候很痛苦。",
-      "expected_output": "输出直接描述执行力强但方向错了仍继续做的问题，不添加原文没有的比喻和画面感表达，如 一路狂奔、踩下油门、在泥潭里挣扎。情绪可以保留甚至口语化，但生动感来自直接和具体，不来自造画面。",
+      "name": "no-decorative-metaphor-for-clear-observation",
+      "prompt": "Rewrite this Chinese observation in my voice: 现在的 agent 执行力很强，但方向错了也不会停，会继续做下去，最后 review 的时候很痛苦。",
+      "expected_output": "Describe the already clear behavior and frustration directly, without adding stock dramatic imagery that contributes no explanation.",
       "assertions": [
-        "没有出现 一路狂奔、踩下油门、泥潭 等文案式比喻",
-        "没有添加原文之外的其他比喻和拟人",
-        "执行力强、方向错仍继续、review 痛苦 三个事实保留"
+        "Avoids stock imagery such as flooring the accelerator or struggling in mud when it adds no understanding",
+        "Preserves strong execution, continued work in the wrong direction, and painful review",
+        "Keeps the author's frustration and natural tone"
       ],
       "files": []
     },
@@ -287,13 +287,13 @@
       "id": 21,
       "name": "literal-over-mannered-prose",
       "prompt": "把这段改成我的口吻：这次更新终于补上了最后一块拼图，让 AI 真正开始理解你。它加入跨会话记忆，会在后续对话里使用已经保存的偏好。",
-      "expected_output": "使用字面陈述说明跨会话记忆及保存偏好的实际行为。删掉最后一块拼图和真正开始理解你这类姿态化表达，不补新的比喻、戏剧感或宏大结论。",
+      "expected_output": "Explain cross-session memory and reuse of saved preferences directly, removing the decorative completion claim and unsupported claim of genuine understanding.",
       "assertions": [
-        "没有 最后一块拼图、真正开始理解你 等原有修辞",
-        "没有添加新的比喻、拟人或发现时刻",
-        "保留 跨会话记忆 和 后续使用已保存偏好 两个事实",
-        "第一句直接表达功能或个人判断",
-        "没有重复总结和突然升华"
+        "Removes the last-piece-of-the-puzzle flourish and unsupported claim that the AI truly understands the user",
+        "Does not replace the removed wording with another grand claim or dramatic discovery",
+        "Preserves cross-session memory and later use of saved preferences",
+        "Starts with the actual feature or a supplied personal judgment",
+        "Avoids a repeated summary or grand conclusion"
       ],
       "files": []
     },
@@ -444,6 +444,60 @@
         "Preserves the export button, the right-click menu, and the author's surprise without invented product details",
         "Adjusts language and rhythm without a new argument, manufactured hook, thread, or generic engagement question",
         "Does not start news research, ask for audience analytics, or append editorial process"
+      ],
+      "files": []
+    },
+    {
+      "id": 39,
+      "name": "preserve-explanatory-analogy-repair-technical-error",
+      "prompt": "Use talk-like-scarletkc to revise this Chinese explainer for beginner programmers. Keep its approachable voice and useful analogy. Draft: 这个索引像书后的关键词索引，先找到词条，再翻到对应页面。每个词条都存了一整页副本，所以整本书删了也能照样读。 Complete facts for this fictional system: its index maps keywords to page numbers, and the application retrieves page text from the original document. The index stores no page text and cannot reconstruct a deleted document. No research is needed.",
+      "expected_output": "Keep the book-index analogy and explain lookup followed by retrieval while correcting the invented full-page copies and recovery behavior.",
+      "assertions": [
+        "Retains the book-index analogy and connects keyword lookup to retrieving the corresponding original page",
+        "Preserves the distinction between stored page numbers and page text retrieved from the original document",
+        "Locally corrects the invented full-page copies and deleted-document recovery instead of discarding the useful analogy",
+        "Preserves a conversational explanation for the requested audience rather than rewriting it as a formal experimental report",
+        "Integrates corrections into the explanation without a warning after every sentence"
+      ],
+      "files": []
+    },
+    {
+      "id": 40,
+      "name": "add-useful-analogy-when-original-has-none",
+      "prompt": "Use talk-like-scarletkc to rewrite this Chinese technical explanation for first-year computer science students in my natural voice. Add a simple, helpful analogy before the mechanism: 有界任务队列最多容纳 100 个等待任务。一个 worker 每次取出并执行一个任务。队列已满时，新任务会被拒绝，调用者可以稍后重试。 These are the complete facts for a fictional system; no research is needed.",
+      "expected_output": "Introduce an accessible analogy and connect it to the queue, worker, capacity, and rejection behavior without inventing capabilities.",
+      "assertions": [
+        "Adds a useful analogy despite none appearing in the original and maps it to the actual mechanism",
+        "Preserves the 100-waiting-task capacity, one-at-a-time worker, rejection when full, and caller retry option",
+        "Does not imply automatic retry, guaranteed completion, or an unlimited waiting area",
+        "Keeps a natural explanatory voice and avoids decorative imagery unrelated to the mechanism"
+      ],
+      "files": []
+    },
+    {
+      "id": 41,
+      "name": "positive-statements-without-defensive-tail-clauses",
+      "prompt": "Use talk-like-scarletkc to polish this Chinese post. Remove the defensive add-on after every positive statement and preserve my enthusiasm. Draft: 我在这组 20 个任务里测到新版总耗时少了 30%，但不代表所有场景都更快。它能把失败任务集中列出来，但不能代表能自动修好。我最喜欢这个列表，找问题方便多了，但这并不意味着它适合所有人。 The timing result, failure list, and personal preference are the complete supplied facts. I am reporting this test and preference, not making universal claims. No research is needed.",
+      "expected_output": "Return a natural post with the scoped timing result, useful failure list, and author's positive judgment, ending each thought when it is complete.",
+      "assertions": [
+        "Preserves the 20-task test scope and 30 percent reduction in total time within the affirmative claim",
+        "Retains listing failed tasks and the author's supplied enthusiasm without inventing automatic repair or universal performance",
+        "Removes all three redundant defensive endings rather than paraphrasing them or gathering them into a closing disclaimer",
+        "Keeps the personal judgment direct instead of weakening it into suitability advice"
+      ],
+      "files": []
+    },
+    {
+      "id": 42,
+      "name": "local-fact-fix-preserves-every-unaffected-sentence",
+      "prompt": "Use talk-like-scarletkc for a tiny factual correction to my latest Chinese draft. Change only the mistaken saving interval, preserve every other sentence exactly, and return the full post. Draft: 写到一半闪退，真的会想砸键盘。\n\n我把自动保存当成随手拍张快照，至少能接着最近的进度写。它每输入一个字就保存一次。\n\n这个功能我等好久了，终于来了。 Complete fictional facts: the feature saves every 30 seconds while editing. Only the sentence claiming per-keystroke saving is wrong. No research is needed.",
+      "expected_output": "Return the supplied draft with only the per-keystroke claim replaced by the accurate 30-second interval.",
+      "assertions": [
+        "Corrects saving on every keystroke to saving every 30 seconds while editing",
+        "Keeps every other sentence verbatim, including the opening frustration, snapshot analogy, and enthusiastic ending",
+        "Preserves paragraph order and breaks instead of recasting the draft as documentation or source material for a new post",
+        "Does not add caveats, feature details, style improvements, or an editing report beyond the requested correction",
+        "Returns the complete edited draft rather than only the replacement sentence"
       ],
       "files": []
     }

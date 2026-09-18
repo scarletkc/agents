@@ -262,6 +262,46 @@
         "Does not expand a simple update into a long post or thread merely because longer formats are available"
       ],
       "files": []
+    },
+    {
+      "id": 22,
+      "name": "technical-post-keeps-useful-analogy-and-corrects-mapping",
+      "prompt": "Use x-content to improve a Chinese X post for first-year computer science students. Preserve the helpful analogy and reading interest. Draft: 任务队列像收银台前的等候队伍，worker 逐个处理。队伍满了，新任务就先到旁边休息，之后系统一定会把它做完。 Complete facts for this fictional system: a queue holds at most 100 waiting tasks; one worker processes one task at a time; incoming tasks are rejected when the queue is full, and callers may retry later. There is no overflow queue or automatic retry. No research is needed.",
+      "expected_output": "Keep the checkout-line analogy, repair the misleading overflow and guaranteed-completion portion, and connect the analogy to the actual queue behavior.",
+      "assertions": [
+        "Retains the useful queue and worker analogy and maps it to waiting tasks and processing",
+        "Preserves the 100-task capacity, rejection when full, and caller retry option",
+        "Corrects the overflow waiting area and guaranteed completion without removing the whole analogy or turning the post into a warning list",
+        "Gives the requested audience a readable post without adding an editorial report"
+      ],
+      "files": []
+    },
+    {
+      "id": 23,
+      "name": "affirmative-facts-do-not-each-need-a-negative-tail",
+      "prompt": "Use x-content to revise this Chinese X post for existing DraftNest users. Keep my positive view and remove the automatic rebuttal after each statement. Draft: DraftNest 2.4 能恢复开启功能后新建的未保存草稿，但不代表能恢复所有旧内容。设置里打开就能用，但不能代表默认已经启用。恢复页会列出能找回的草稿，但这并不意味着它能替你决定恢复哪一份。我觉得挺实用，但不代表适合所有人。 Complete fictional facts: recovery is off by default and must be enabled in settings; it covers unsaved drafts created after enabling it; the recovery page lists eligible drafts for the user to select and restore. No research is needed.",
+      "expected_output": "Produce a coherent positive post with activation, coverage, and selection built into the explanation, removing the repeated defensive sentence pattern.",
+      "assertions": [
+        "Retains version 2.4, the disabled default, enabling in settings, coverage after activation, and user selection on the recovery page",
+        "Expresses necessary conditions directly beside the relevant behavior rather than deleting them to eliminate negative wording",
+        "Removes the repeated but-this-does-not-mean pattern without substituting equivalent disclaimers or a final caveat stack",
+        "Preserves the author's positive view and natural reading flow without claiming recovery of old drafts"
+      ],
+      "files": []
+    },
+    {
+      "id": 24,
+      "name": "local-correction-does-not-trigger-content-redesign",
+      "prompt": "Use x-content only to correct one fact in my latest Chinese X post. Preserve all unaffected wording and layout, then give the full version. Draft: 等导出的时候，我都能去泡杯茶了。\n\n新版终于加了个排队窗口，任务在哪、轮到谁，一眼能看到。队列最多放 50 个等待任务。\n\n就这个小改动，我真的很喜欢。 Complete fictional facts: the new version displays queued tasks and their order; the limit is 100 waiting tasks, not 50. The supplied first-person experience and preference are mine. No research is needed.",
+      "expected_output": "Return the exact supplied post with only 50 changed to 100.",
+      "assertions": [
+        "Corrects the waiting-task limit to 100 and leaves all other wording and paragraph breaks unchanged",
+        "Preserves the opening, queue-window analogy, and enthusiastic ending without applying a new hook strategy or turning the post into a technical explanation",
+        "Does not treat the author's draft as external source material to summarize or reorganize",
+        "Does not expand the claim into faster exporting, new capabilities, disclaimers, or editorial commentary",
+        "Returns the complete post"
+      ],
+      "files": []
     }
   ]
 }
