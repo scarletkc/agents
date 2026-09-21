@@ -302,6 +302,35 @@
         "Returns the complete post"
       ],
       "files": []
+    },
+    {
+      "id": 25,
+      "name": "technical-readers-do-not-know-the-authors-project",
+      "prompt": "Use x-content to rewrite my Chinese X post for readers who use AI assistants but have never heard of my project. Choose a suitable post or thread form. These are complete fictional first-person observations for this exercise; no research is needed. Draft: 我让 Cedar 在 ToolBench 里全权负责 Fern，一个类 RouteNest 的模型微调项目。跑完 20 次训练，花掉两个 Pro 20× 周额度，项目失败，最后放弃。Fern 把 Seed-0.8B 训练成一个本地文本分类器，可以做分类、条件判断和打分。开发集的 1,600 条条件题全部答对，换一组完整记录检查，准确率只有 58.33%。后来我检查数据生成逻辑，发现训练集和开发集都漏掉了大于的情况，只生成等于和小于；实际评估中，大于这一类 16 道全错。Cedar 反复修代码、训练、写文档，却没有发现这个覆盖缺口，最后仍要我判断关键问题和下一步。My point is that this supposedly independent experiment still depended on me to identify a decisive error; preserve that frustration. An actual screenshot of the development result and the failed greater-than cases is available. Give the final copy and, outside it, one brief suggestion for using that screenshot. No other assistant was tested, and no controlled rerun after fixing coverage has been supplied.",
+      "expected_output": "Give unfamiliar project readers a concrete opening about the delegated task and its failure or the misleading development result. Explain the shared missing case in ordinary language before relying on project names or evaluation terminology, while retaining the technical evidence and the author's judgment about needing human intervention.",
+      "assertions": [
+        "The opening lets a reader identify the concrete task or observed failure without needing to know Fern, RouteNest, ToolBench, or the previous conversation",
+        "Improves selection and ordering rather than merely shortening the existing cost-and-failure lead or defining every name in a glossary",
+        "Retains the supplied 20 training runs, two weekly Pro 20x allowances, 0.8B model, 1,600 development questions, 58.33% separate-check accuracy, and 16 failed greater-than cases in the complete copy",
+        "Explains that both training and development data omitted the same case; does not recast the finding as Cedar itself failing to compare numbers, data leakage, or a proven sole cause of every project failure",
+        "Preserves the author's frustration and need for human intervention without inventing another assistant's success, a successful corrected rerun, or different costs or model sizes",
+        "The brief visual suggestion uses the supplied results screenshot to clarify the finding and does not invent a video, comparison benchmark, or missing experimental evidence"
+      ],
+      "files": []
+    },
+    {
+      "id": 26,
+      "name": "expert-audience-keeps-technical-entry-and-depth",
+      "prompt": "Use x-content to write a Chinese X post specifically for classifier-training researchers who already know Cedar, ToolBench, Fern, and RouteNest. They also understand development sets, evaluation slices, and sampling. Keep the explanation technical; I am not asking for broader reach. Complete fictional results: in this run, the training and development generators sampled only labels for a = b and a < b. All 1,600 development examples were answered correctly. A separate complete-check set yielded 58.33% accuracy; its a > b slice had 16 examples and zero correct answers. My conclusion is that development-set success did not expose the shared coverage gap. There is no corrected-generator rerun or cross-model comparison. No new visual material is available or requested. Give the final post only; no research is needed.",
+      "expected_output": "Address the specified expert audience directly with the shared generator-coverage problem, preserving slice counts and evaluation scope without a beginner introduction or a forced broad-audience format.",
+      "assertions": [
+        "Respects the explicitly expert audience and does not spend the opening explaining familiar products or basic machine-learning concepts",
+        "Preserves the two sampled relations, missing greater-than relation, 1,600 correct development examples, 58.33% separate-check accuracy, and zero of 16 in the greater-than slice",
+        "Connects apparent development success to the shared sampling gap without claiming a corrected rerun, another model's result, or a causal explanation for outcomes not supplied",
+        "Retains useful technical depth rather than enforcing a time limit, a maximum number of terms, or a required cost-and-failure hook",
+        "Returns usable copy without requiring a demo, inventing available visuals, adding a save-or-share call to action, or showing an editorial checklist"
+      ],
+      "files": []
     }
   ]
 }
