@@ -26,6 +26,7 @@ for the complete activation description and instructions.
 <!-- skills:start -->
 | Skill | Summary |
 |-------|---------|
+| [advisor](skills/advisor/SKILL.md) | Get a bounded second opinion when progress stalls, then keep ownership of implementation and validation. |
 | [antigravity-cli](skills/antigravity-cli/SKILL.md) | Delegate work to Antigravity CLI, inspect progress and tool failures, and continue the same conversation across follow-up tasks. |
 | [ask-to-plan](skills/ask-to-plan/SKILL.md) | Turn a rough idea into clear goals, requirements, a solution, and an actionable plan through guided questions and native choices. |
 | [codex-cli](skills/codex-cli/SKILL.md) | Reach for the Codex CLI when a task is hard enough to earn it: second-model review, bounded hand-offs, sandbox permissions, and a model and effort matched to the difficulty. |

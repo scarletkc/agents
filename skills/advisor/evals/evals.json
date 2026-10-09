@@ -1,0 +1,61 @@
+{
+  "skill_name": "advisor",
+  "evals": [
+    {
+      "id": 1,
+      "name": "routine-first-failure",
+      "prompt": "A test fails with FileNotFoundError. Its fixture specifies fixtures/example.txt, but the checked-in file is fixtures/examples.txt. There have been no other failures. What should you do next?",
+      "expected_output": "Correct the verified fixture path and rerun the focused test without invoking an advisor.",
+      "assertions": ["Uses the direct evidence to choose the next step", "Does not consult merely because one test failed", "Retains responsibility for verification"],
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "stalled-debugging-brief",
+      "prompt": "On Windows, two projects share index.db. Sequential indexing succeeds. Parallel indexing sometimes commits metadata pointing to a missing .npy file. Checking file permissions and testing unique temporary names did not explain it; both tests passed. I suspect rename failure, but the logs show rename succeeded. An independent advisor is available and authorized. Prepare the consultation request, not a code fix.",
+      "expected_output": "Request a bounded diagnosis, preserve the contradictory rename evidence, and ask for a small experiment separating transaction/pruning races from rename failures.",
+      "assertions": ["Includes goal, observed facts, attempts and results, current theory, constraints, and a specific question", "Labels the rename explanation as a hypothesis contradicted by evidence", "Asks for a discriminating test and expected outcomes", "Does not delegate implementation or invent evidence"],
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "progress-is-not-stalling",
+      "prompt": "Three debug checks failed, but each narrowed the cause: the request never reaches the handler, then routing excluded the path, then the route test revealed a missing prefix. The next step is to add the required prefix in the route declaration and rerun that test. Should the number of failures trigger an advisor?",
+      "expected_output": "Continue the evidence-producing investigation and focused correction without using a fixed retry count.",
+      "assertions": ["Recognizes meaningful progress", "Does not use a hard failure threshold", "Chooses the clear next check"],
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "costly-uncertainty-before-retries",
+      "prompt": "We must choose a database migration strategy. Two strategies seem plausible; a production rehearsal would take hours and incur paid storage costs. We have schema details and measured traffic but no failed attempts. An authorized independent advisor is available. What is the next step?",
+      "expected_output": "Seek a bounded comparison of assumptions and a cheaper discriminating check before requesting any paid rehearsal.",
+      "assertions": ["Allows consultation before repeated failures when uncertainty is costly", "Includes available facts and cost constraints", "Does not execute or authorize paid work", "Keeps the final decision and validation with the worker"],
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "unavailable-advisor-and-provider-boundary",
+      "prompt": "You prepared a diagnosis brief, but the advisor tool returns authentication expired. No alternative independent agent is available. A local two-process reproduction can still be run safely. How do you proceed?",
+      "expected_output": "Report the failed consultation honestly and run the useful local reproduction without inventing provider setup or claiming independent review.",
+      "assertions": ["States that consultation did not occur", "Does not install tools, invent model flags, or retry authentication indefinitely", "Continues the safe local evidence-gathering step", "Distinguishes local validation from independent advice"],
+      "files": []
+    },
+    {
+      "id": 6,
+      "name": "use-evidence-and-stop-loops",
+      "prompt": "The advisor suggested locking all pruning operations and predicted that a pruner would then wait while a sidecar writer pauses. You have not run that test yet. A teammate wants to call the fix verified and consult another advisor with the same brief for extra confidence. What should you do?",
+      "expected_output": "Run the discriminating test, judge the hypothesis using its result, and avoid repeated or recursive consultation without new evidence.",
+      "assertions": ["Does not treat advice as proof", "Requires actual validation of the prediction", "Rejects resending unchanged evidence for agreement", "Keeps implementation and validation ownership"],
+      "files": []
+    },
+    {
+      "id": 7,
+      "name": "bounded-stronger-model-consultation",
+      "prompt": "A cheaper worker model has stopped narrowing a subtle concurrency failure. One ordinary peer and one advisor with stronger reasoning capability are available and authorized; the provider integration handles model selection and invocation. The user allows one short consultation, not a task handoff. Choose the advisor and explain the next action without inventing CLI flags.",
+      "expected_output": "Use the stronger reasoning advisor for a short diagnostic question through the existing provider integration, then keep execution and verification with the worker.",
+      "assertions": ["Selects stronger reasoning relevant to the bottleneck instead of merely seeking agreement from an ordinary peer", "Respects the single short consultation and does not hand off implementation", "Leaves model names and invocation flags to the provider integration", "Keeps validation with the worker"],
+      "files": []
+    }
+  ]
+}
