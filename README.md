@@ -29,6 +29,7 @@ for the complete activation description and instructions.
 | [antigravity-cli](skills/antigravity-cli/SKILL.md) | Delegate work to Antigravity CLI, inspect progress and tool failures, and continue the same conversation across follow-up tasks. |
 | [ask-to-plan](skills/ask-to-plan/SKILL.md) | Turn a rough idea into clear goals, requirements, a solution, and an actionable plan through guided questions and native choices. |
 | [codex-cli](skills/codex-cli/SKILL.md) | Reach for the Codex CLI when a task is hard enough to earn it: second-model review, bounded hand-offs, sandbox permissions, and a model and effort matched to the difficulty. |
+| [devin-cli](skills/devin-cli/SKILL.md) | Hand bounded tasks to Devin CLI over ACP, keep its permissions single-use, watch progress, and resume the same session for follow-ups. |
 | [grok-cli](skills/grok-cli/SKILL.md) | Delegate work to Grok Build, keep its session for follow-ups, and inspect results while the supervising agent continues working. |
 | [marketing-copy](skills/marketing-copy/SKILL.md) | Write outbound promo copy that stays truthful, discloses only what may be public, and earns attention without hype. |
 | [product-writing](skills/product-writing/SKILL.md) | Write accurate product copy and useful technical docs. |
