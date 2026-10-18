@@ -36,6 +36,11 @@ DEFAULT_DENY = (
     r"\bgh\s+(?:pr|release|repo|issue|api|workflow|secret|auth|gist)\b",
 )
 WRITE_KINDS = frozenset({"edit", "delete", "move"})
+# Shell commands can write anywhere and cannot be path-checked, so a read-only
+# run rejects them along with every write tool.
+READ_ONLY_REJECTED_KINDS = WRITE_KINDS | {"execute"}
+READ_ONLY_MODES = frozenset({"ask", "plan"})
+TEXT_ACTIVITY_INTERVAL = 5.0
 SENTINEL_EOF = object()
 
 
@@ -59,9 +64,27 @@ def positive_seconds(value: str) -> float:
     return number
 
 
+def non_negative_int(value: str) -> int:
+    number = int(value)
+    if number < 0:
+        raise argparse.ArgumentTypeError("must be zero or greater")
+    return number
+
+
 def default_run_dir() -> Path:
     stamp = time.strftime("%Y%m%d-%H%M%S")
     return Path(tempfile.gettempdir()) / "devin-acp" / f"{stamp}-{os.getpid()}"
+
+
+def prepare_run_dir(run_dir: Path) -> None:
+    """Create a private directory for one run; refuse one that already holds a run."""
+    if (run_dir / "events.jsonl").exists():
+        raise DevinError(f"{run_dir} already holds a run; pass a new --run-dir")
+    # Briefs and Devin's output can contain project secrets; keep them owner-only.
+    run_dir.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    run_dir.mkdir(exist_ok=True, mode=0o700)
+    if os.name != "nt":
+        os.chmod(run_dir, 0o700)
 
 
 class Policy:
@@ -87,12 +110,15 @@ class Policy:
         for pattern in self.deny:
             if pattern.search(subject) or pattern.search(decoded):
                 return False, f"matches deny rule {pattern.pattern}"
-        if tool.get("kind") in WRITE_KINDS:
-            if self.read_only:
-                return False, "read-only run"
-            for location in tool.get("locations") or []:
-                path = location.get("path")
-                if path and not self._writable(path):
+        kind = tool.get("kind")
+        if self.read_only and kind in READ_ONLY_REJECTED_KINDS:
+            return False, "read-only run"
+        if kind in WRITE_KINDS:
+            paths = [location.get("path") for location in tool.get("locations") or []]
+            if not any(paths):
+                return False, "write without a target path"
+            for path in paths:
+                if not path or not self._writable(path):
                     return False, f"write outside allowed roots: {path}"
         return True, "within policy"
 
@@ -107,7 +133,8 @@ class Policy:
 class Recorder:
     def __init__(self, run_dir: Path):
         self.started = time.monotonic()
-        self.stream = (run_dir / "events.jsonl").open("a", encoding="utf-8")
+        # "x" refuses to append a second run to an existing event stream.
+        self.stream = (run_dir / "events.jsonl").open("x", encoding="utf-8")
 
     def __call__(self, event_type: str, **fields: Any) -> None:
         record = {"t": round(time.monotonic() - self.started, 3), "type": event_type, **fields}
@@ -147,6 +174,8 @@ class DevinSession:
         self.write_lock = threading.Lock()
         self.tools: dict[str, dict[str, Any]] = {}
         self.text: list[str] = []
+        self.text_chars = 0
+        self.last_text_record = 0.0
         self.collect_text = False
         self.session_id: str | None = None
         self.title: str | None = None
@@ -308,7 +337,14 @@ class DevinSession:
         if kind == "agent_message_chunk":
             content = update.get("content", {})
             if content.get("type") == "text":
-                self.text.append(content.get("text", ""))
+                chunk = content.get("text", "")
+                self.text.append(chunk)
+                self.text_chars += len(chunk)
+                # Keep the event log moving while Devin streams a long answer.
+                now = time.monotonic()
+                if now - self.last_text_record >= TEXT_ACTIVITY_INTERVAL:
+                    self.last_text_record = now
+                    self.record("text", chars=self.text_chars)
         elif kind in {"tool_call", "tool_call_update"}:
             tool_id = update.get("toolCallId")
             tool = self.tools.setdefault(tool_id, {})
@@ -332,12 +368,16 @@ class DevinSession:
             self.record("usage", used=update.get("used"), size=update.get("size"))
 
     def _apply_config(self, update: dict[str, Any]) -> None:
-        if "currentModeId" in update:
-            self.current_mode = update["currentModeId"]
-        for option in update.get("configOptions") or []:
+        options = update.get("configOptions") or []
+        for option in options:
             self.config[option.get("id")] = option.get("currentValue")
-        if "mode" in self.config:
+        if any(option.get("id") == "mode" for option in options):
             self.current_mode = self.config["mode"]
+        if update.get("currentModeId"):
+            # A mode update without config options is newer than the cached option.
+            self.current_mode = update["currentModeId"]
+            if "mode" in self.config:
+                self.config["mode"] = self.current_mode
 
     def _on_permission(self, message: dict[str, Any]) -> None:
         params = message.get("params", {})
@@ -500,7 +540,8 @@ def progress(run_dir: Path, tool_count: int) -> dict[str, Any]:
         "seconds_since_last_event": round(time.time() - events_file.stat().st_mtime, 1),
         "session_id": next((e["session_id"] for e in events if e["type"] == "session"), None),
         "tool_calls": len(tools),
-        "recent_tools": [e.get("title") for e in tools[-tool_count:]],
+        "recent_tools": [e.get("title") for e in tools[len(tools) - tool_count :]] if tool_count > 0 else [],
+        "text_chars": max((e.get("chars", 0) for e in events if e["type"] == "text"), default=0),
         "plan": plans[-1]["entries"] if plans else [],
         "permissions_denied": [
             {key: e.get(key) for key in ("title", "command", "reason")}
@@ -551,7 +592,7 @@ def parser() -> argparse.ArgumentParser:
     prompts = run.add_mutually_exclusive_group()
     prompts.add_argument("--prompt", help="task text; default reads UTF-8 stdin")
     prompts.add_argument("--prompt-file", type=Path, help="UTF-8 file with the task text")
-    run.add_argument("--run-dir", type=Path, help="where events, final text and summary go (default: a new directory under the system temp dir)")
+    run.add_argument("--run-dir", type=Path, help="new or empty directory for this run's events, final text and summary (default: a new private directory under the system temp dir)")
     run.add_argument("--resume", metavar="SESSION_ID", help="continue an earlier Devin session instead of starting a new one")
     run.add_argument("--model", help="model name as accepted by `devin --model` (see `devin models list`)")
     run.add_argument("--mode", help="session mode, e.g. accept-edits, smart, ask, plan (default: Devin's configured mode)")
@@ -561,12 +602,12 @@ def parser() -> argparse.ArgumentParser:
     run.add_argument("--deny", action="append", default=[], metavar="REGEX", help="extra pattern; matching tool calls are rejected (repeatable)")
     run.add_argument("--no-default-deny", action="store_true", help="drop the built-in git/gh deny patterns")
     run.add_argument("--allow-write-root", action="append", default=[], type=Path, metavar="DIR", help="extra directory edits may target (repeatable)")
-    run.add_argument("--read-only", action="store_true", help="reject every edit, delete and move request")
+    run.add_argument("--read-only", action="store_true", help="reject every edit, delete, move and shell-command request; defaults --mode to ask")
     run.add_argument("--devin", default="devin", help="Devin CLI executable name or path")
 
     prog = sub.add_parser("progress", help="summarize a running or finished run directory")
     prog.add_argument("--run-dir", type=Path, required=True)
-    prog.add_argument("--tools", type=int, default=8, help="how many recent tool titles to show")
+    prog.add_argument("--tools", type=non_negative_int, default=8, help="how many recent tool titles to show")
     return root
 
 
@@ -588,8 +629,14 @@ def main(argv: list[str] | None = None) -> int:
             raise DevinError("--cwd must be a directory")
         prompt = read_prompt(args)
         command = build_command(args)
+        mode = args.mode
+        if args.read_only:
+            if mode is None:
+                mode = "ask"
+            elif mode not in READ_ONLY_MODES:
+                raise DevinError(f"--read-only needs --mode ask or plan, not {mode!r}")
         run_dir = (args.run_dir or default_run_dir()).expanduser().resolve()
-        run_dir.mkdir(parents=True, exist_ok=True)
+        prepare_run_dir(run_dir)
         print(encode({"event": "started", "run_dir": str(run_dir)}), flush=True)
         policy = Policy(
             cwd,
@@ -602,7 +649,7 @@ def main(argv: list[str] | None = None) -> int:
             cwd,
             run_dir,
             policy,
-            mode=args.mode,
+            mode=mode,
             resume=args.resume,
             timeout=args.timeout,
             startup_timeout=args.startup_timeout,

@@ -5,6 +5,8 @@ import contextlib
 import importlib.util
 import io
 import json
+import os
+import stat
 import sys
 import tempfile
 import unittest
@@ -26,13 +28,15 @@ class DevinRunTests(unittest.TestCase):
         self.workspace = self.root / "workspace"
         self.workspace.mkdir()
         self.trace_file = self.root / "trace.jsonl"
+        self.runs = 0
 
     def tearDown(self):
         self.temp.cleanup()
 
     def run_session(self, agent_mode="normal", prompt="hello", *, read_only=False, deny=None, **options):
-        run_dir = self.root / f"run-{agent_mode}"
-        run_dir.mkdir(exist_ok=True)
+        self.runs += 1
+        run_dir = self.root / f"run-{self.runs}-{agent_mode}"
+        devin.prepare_run_dir(run_dir)
         policy = devin.Policy(
             self.workspace, list(devin.DEFAULT_DENY) + (deny or []), [], read_only
         )
@@ -98,6 +102,53 @@ class DevinRunTests(unittest.TestCase):
     def test_extra_deny_pattern_rejects_matching_command(self):
         self.run_session("permissions", deny=[r"git\s+status"])
         self.assertEqual(self.outcomes()[901]["optionId"], "reject_once")
+
+    def test_writes_without_a_path_and_read_only_shell_commands_are_rejected(self):
+        policy = devin.Policy(self.workspace, [], [], read_only=False)
+        self.assertEqual(policy.decide({"kind": "edit"}), (False, "write without a target path"))
+        self.assertTrue(policy.decide({"kind": "execute", "title": "Ran ls"})[0])
+        read_only = devin.Policy(self.workspace, [], [], read_only=True)
+        self.assertEqual(read_only.decide({"kind": "execute"}), (False, "read-only run"))
+        self.assertTrue(read_only.decide({"kind": "read"})[0])
+
+    def test_read_only_cli_defaults_to_ask_and_rejects_editing_modes(self):
+        command = [sys.executable, str(FIXTURE), str(self.trace_file), "normal"]
+        base = ["run", "--cwd", str(self.workspace), "--prompt", "x", "--read-only"]
+        with patch.object(devin, "build_command", return_value=command):
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                code = devin.main([*base, "--run-dir", str(self.root / "ro-1")])
+            self.assertEqual(code, 0)
+            finished = json.loads(output.getvalue().splitlines()[-1])
+            self.assertEqual(finished["mode"], "ask")
+            with contextlib.redirect_stdout(io.StringIO()) as output:
+                code = devin.main([*base, "--mode", "accept-edits", "--run-dir", str(self.root / "ro-2")])
+            self.assertEqual(code, 1)
+            self.assertIn("--read-only needs", json.loads(output.getvalue())["error"])
+
+    def test_run_directory_holds_one_private_run(self):
+        _, run_dir = self.run_session()
+        with self.assertRaises(devin.DevinError):
+            devin.prepare_run_dir(run_dir)
+        if os.name != "nt":
+            self.assertEqual(stat.S_IMODE(run_dir.stat().st_mode), 0o700)
+
+    def test_mode_update_without_options_replaces_cached_mode(self):
+        run_dir = self.root / "config"
+        devin.prepare_run_dir(run_dir)
+        policy = devin.Policy(self.workspace, [], [], False)
+        session = devin.DevinSession([sys.executable], self.workspace, run_dir, policy)
+        session._apply_config({"configOptions": [{"id": "mode", "currentValue": "accept-edits"}]})
+        session._apply_config({"currentModeId": "plan"})
+        session.record.close()
+        self.assertEqual(session.current_mode, "plan")
+        self.assertEqual(session.config["mode"], "plan")
+
+    def test_streamed_text_is_logged_as_activity(self):
+        with patch.object(devin, "TEXT_ACTIVITY_INTERVAL", 0):
+            _, run_dir = self.run_session(prompt="streamed")
+        report = devin.progress(run_dir, tool_count=0)
+        self.assertEqual(report["recent_tools"], [])
+        self.assertEqual(report["text_chars"], len("echo: streamed"))
 
     def test_resume_loads_session_and_excludes_replayed_text(self):
         summary, run_dir = self.run_session(resume="steady-otter", prompt="follow-up")
@@ -184,6 +235,8 @@ class DevinCliTests(unittest.TestCase):
         for value in ("0", "-1", "nan", "inf"):
             with self.assertRaises(argparse.ArgumentTypeError):
                 devin.positive_seconds(value)
+        with self.assertRaises(argparse.ArgumentTypeError):
+            devin.non_negative_int("-1")
 
 
 if __name__ == "__main__":

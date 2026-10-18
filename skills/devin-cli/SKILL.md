@@ -35,9 +35,11 @@ python <script> run --cwd <absolute-workspace> --resume <session_id> --prompt-fi
 facility (a background shell command, `nohup ... &`, `Start-Process`) when
 you have other work. It prints JSON lines: `started` with the run directory,
 `session` with Devin's session ID, and `finished` with the summary. It exits
-0 only when the turn ended normally. The run directory holds `final.md`
-(Devin's final message), `summary.json`, `events.jsonl`, and
-`devin.stderr.log`. `--help` lists every flag;
+0 only when the turn ended normally. Each run gets its own owner-only run
+directory holding `final.md` (Devin's final message), `summary.json`,
+`events.jsonl`, and `devin.stderr.log`; `run` refuses a directory that
+already holds a run. The files contain the brief and Devin's output, so keep
+them out of shared or tracked locations. `--help` lists every flag;
 [references/protocol.md](references/protocol.md) covers the ACP details.
 
 ## Write the brief
@@ -85,8 +87,15 @@ The helper answers each request with a single-use option: `allow_once` or
 `allow_always_global`, or `switch_bypass`, because those persist in Devin's
 configuration or change the session's mode. By default it rejects git
 operations that rewrite history or switch branches and worktrees, publishing
-through `gh`, and edits outside `--cwd`. Adjust with `--deny <regex>`,
-`--no-default-deny`, `--allow-write-root <dir>`, and `--read-only`.
+through `gh`, and edit, delete, or move requests whose target is outside
+`--cwd` or missing. Adjust with `--deny <regex>`, `--no-default-deny`, and
+`--allow-write-root <dir>`.
+
+Shell commands are matched only against the deny patterns; a command can
+write anywhere, so no path check applies to it. For a task that must not
+change anything, pass `--read-only`: it rejects every edit, delete, move, and
+shell-command request and starts the session in `ask` mode (`plan` is also
+accepted).
 
 The policy only sees what Devin asks about. In `accept-edits`, Devin's usual
 default, it applies workspace edits and runs read-only tools without asking. Pick
@@ -110,8 +119,8 @@ shell commands but does not edit.
 ## Monitor
 
 `progress` reports the tool-call count, recent tool titles, the latest plan,
-denials, failed tools, `seconds_since_last_event`, and the summary once
-finished. Large tasks routinely run for an hour or more; judge a stall by
+denials, failed tools, the length of the answer streamed so far,
+`seconds_since_last_event`, and the summary once finished. Large tasks routinely run for an hour or more; judge a stall by
 `seconds_since_last_event`, not by elapsed time. `--timeout` (default 3600
 seconds) cancels the turn; if Devin does not acknowledge, the helper stops
 its process tree. Cancelling does not undo edits already made.
