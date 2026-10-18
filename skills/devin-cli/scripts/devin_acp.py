@@ -72,8 +72,10 @@ def non_negative_int(value: str) -> int:
 
 
 def default_run_dir() -> Path:
+    # mkdtemp creates a unique owner-only directory directly in the temp dir,
+    # so no shared parent can be pre-created or replaced by another user.
     stamp = time.strftime("%Y%m%d-%H%M%S")
-    return Path(tempfile.gettempdir()) / "devin-acp" / f"{stamp}-{os.getpid()}"
+    return Path(tempfile.mkdtemp(prefix=f"devin-acp-{stamp}-"))
 
 
 def prepare_run_dir(run_dir: Path) -> None:
@@ -81,7 +83,7 @@ def prepare_run_dir(run_dir: Path) -> None:
     if (run_dir / "events.jsonl").exists():
         raise DevinError(f"{run_dir} already holds a run; pass a new --run-dir")
     # Briefs and Devin's output can contain project secrets; keep them owner-only.
-    run_dir.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    run_dir.parent.mkdir(parents=True, exist_ok=True)
     run_dir.mkdir(exist_ok=True, mode=0o700)
     if os.name != "nt":
         os.chmod(run_dir, 0o700)
@@ -175,6 +177,7 @@ class DevinSession:
         self.tools: dict[str, dict[str, Any]] = {}
         self.text: list[str] = []
         self.text_chars = 0
+        self.recorded_text_chars = 0
         self.last_text_record = 0.0
         self.collect_text = False
         self.session_id: str | None = None
@@ -344,7 +347,7 @@ class DevinSession:
                 now = time.monotonic()
                 if now - self.last_text_record >= TEXT_ACTIVITY_INTERVAL:
                     self.last_text_record = now
-                    self.record("text", chars=self.text_chars)
+                    self._record_text_length()
         elif kind in {"tool_call", "tool_call_update"}:
             tool_id = update.get("toolCallId")
             tool = self.tools.setdefault(tool_id, {})
@@ -366,6 +369,11 @@ class DevinSession:
             self._apply_config(update)
         elif kind == "usage_update":
             self.record("usage", used=update.get("used"), size=update.get("size"))
+
+    def _record_text_length(self) -> None:
+        if self.text_chars != self.recorded_text_chars:
+            self.recorded_text_chars = self.text_chars
+            self.record("text", chars=self.text_chars)
 
     def _apply_config(self, update: dict[str, Any]) -> None:
         options = update.get("configOptions") or []
@@ -517,6 +525,9 @@ class DevinSession:
                 final_text_file=str(self.run_dir / "final.md"),
                 events_file=str(self.run_dir / "events.jsonl"),
             )
+            # Publish the final length even when the last chunks arrived within one interval.
+            self._record_text_length()
+            summary["text_chars"] = self.text_chars
             self.record("end", **{k: v for k, v in summary.items() if k not in {"run_dir"}})
             self.record.close()
             (self.run_dir / "summary.json").write_text(encode(summary), encoding="utf-8")

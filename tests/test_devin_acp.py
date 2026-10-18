@@ -143,6 +143,24 @@ class DevinRunTests(unittest.TestCase):
         self.assertEqual(session.current_mode, "plan")
         self.assertEqual(session.config["mode"], "plan")
 
+    def test_final_text_length_is_recorded_when_chunks_arrive_quickly(self):
+        _, run_dir = self.run_session(prompt="hello")
+        report = devin.progress(run_dir, tool_count=8)
+        self.assertEqual(report["text_chars"], len("echo: hello"))
+        self.assertEqual(report["summary"]["text_chars"], len("echo: hello"))
+
+    def test_default_run_directories_are_unique_and_private(self):
+        first, second = devin.default_run_dir(), devin.default_run_dir()
+        try:
+            self.assertNotEqual(first, second)
+            self.assertEqual(first.resolve().parent, Path(tempfile.gettempdir()).resolve())
+            if os.name != "nt":
+                self.assertEqual(stat.S_IMODE(first.stat().st_mode), 0o700)
+            devin.prepare_run_dir(first)
+        finally:
+            first.rmdir()
+            second.rmdir()
+
     def test_streamed_text_is_logged_as_activity(self):
         with patch.object(devin, "TEXT_ACTIVITY_INTERVAL", 0):
             _, run_dir = self.run_session(prompt="streamed")
