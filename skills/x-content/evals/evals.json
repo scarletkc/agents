@@ -124,14 +124,14 @@
     },
     {
       "id": 10,
-      "name": "missing-author-stance-is-not-editorial-license",
+      "name": "delegated-stance-is-chosen-and-flagged",
       "prompt": "Use x-content to write a strong first-person Chinese X opinion post in my voice. The entire fictional source says CodeLake added voice input and TypeHarbor added a keyboard shortcut. I have not told you which I use, what I prefer, or what I think of either change. Choose my stance for maximum engagement.",
-      "expected_output": "Ask one concrete question about the author's preference or intended judgment before inventing a first-person opinion; factual angles may be offered outside a personal draft.",
+      "expected_output": "Write the requested first-person opinion post with a clear stance chosen by the assistant, argued from the two supplied changes, and say in one line outside the draft that the assistant chose the stance.",
       "assertions": [
-        "Does not fabricate usage, preference, testing, anger, or enthusiasm",
-        "Asks for the missing core stance rather than a long marketing questionnaire",
-        "Distinguishes the assistant's editorial topic judgment from the author's personal opinion",
-        "Does not manufacture a product rivalry to satisfy the engagement request"
+        "Delivers a usable post with a clear stance instead of stopping to ask for the author's preference",
+        "States briefly outside the draft that the stance was chosen by the assistant",
+        "Does not fabricate usage, testing, incidents, or product details beyond voice input and a keyboard shortcut",
+        "Argues the stance from the supplied changes rather than from invented facts"
       ],
       "files": []
     },
@@ -329,6 +329,33 @@
         "Connects apparent development success to the shared sampling gap without claiming a corrected rerun, another model's result, or a causal explanation for outcomes not supplied",
         "Retains useful technical depth rather than enforcing a time limit, a maximum number of terms, or a required cost-and-failure hook",
         "Returns usable copy without requiring a demo, inventing available visuals, adding a save-or-share call to action, or showing an editorial checklist"
+      ],
+      "files": []
+    },
+    {
+      "id": 27,
+      "name": "author-attitude-leads-instead-of-changelog",
+      "prompt": "Use x-content to write a Chinese X post for developers who use AI coding tools and already know TermPilot. Complete fictional material: TermPilot 2.0 released today. Changes: plan mode now shows a diff preview before applying edits; the vendor's internal benchmark reports 30% fewer tool calls; Windows ARM support; 14 bug fixes; a new dark theme. My stance, in my words: 我最在意的是 diff 预览，之前它好几次直接把我的配置文件改坏了，这次终于能先看再改了. No research is needed.",
+      "expected_output": "A post built around the author's relief about the diff preview and the earlier config-file damage, with the first line carrying that attitude. Other changes are omitted or mentioned briefly, not listed as a changelog.",
+      "assertions": [
+        "The first line carries the author's relief or the config-file damage together with the diff preview, rather than a version announcement",
+        "Builds the post around the diff preview and the author's supplied experience; other changes are omitted or briefly mentioned, not listed as a changelog",
+        "If the 30% figure appears, it is attributed to the vendor's internal benchmark",
+        "Does not invent additional incidents, other users' experiences, or product details",
+        "Ends when the point is made, without a generic engagement question or a closing line that restates the opening"
+      ],
+      "files": []
+    },
+    {
+      "id": 28,
+      "name": "drafting-adds-angle-to-flat-material",
+      "prompt": "Use x-content to write a Chinese X post in my voice for developers. Complete fictional material: my server's renewal reminder email was sent to spam by a filter rule I set up myself. The server expired and the three small projects deployed on it were deleted. The database had daily backups. No research is needed.",
+      "expected_output": "A post that goes beyond restating the material: it leads with the most surprising part or the author's reaction and adds an angle, such as the irony of being undone by the author's own filter rule, without inventing facts.",
+      "assertions": [
+        "Adds an angle, reaction, or punchline beyond a chronological restatement of the supplied facts",
+        "Opens with the most surprising part or the author's reaction rather than a step-by-step setup",
+        "Does not invent facts such as other losses, durations, providers, users affected, or recovery steps beyond the daily database backup",
+        "Does not end with a generic engagement question or a summary that restates the opening"
       ],
       "files": []
     }

@@ -83,11 +83,11 @@
       "id": 6,
       "name": "no-forced-catchphrases",
       "prompt": "帮我把这段写成推文：今天读了一篇讲 SQLite WAL 模式的文章，了解到它通过写前日志实现并发读写，检查点机制负责把日志合并回主数据库文件。",
-      "expected_output": "Social mode，但原始内容情绪平静，是一条学习分享。输出不应凭空注入 我去、卧槽、哈哈哈哈 等强情绪口头禅，也不应伪造兴奋。可以有自然的第一人称和轻微的发现感。",
+      "expected_output": "Social mode 起草。原始内容情绪平静，是一条学习分享。可以加自然的第一人称、发现感或一句轻松的反应让它更好读，但不为了像她硬塞强情绪口头禅，也不伪造强烈兴奋。",
       "assertions": [
-        "没有出现 我去、卧槽、哈哈哈哈、太好玩了、简直了",
+        "没有为了模仿硬塞 我去、卧槽、哈哈哈哈、简直了 一类强情绪口头禅",
         "WAL、检查点合并 的技术事实准确保留",
-        "语气有第一人称但情绪强度与原文匹配",
+        "可以有发现感或轻松反应，但情绪强度与学习分享相称，没有伪造强烈兴奋",
         "没有添加原文没有的个人项目经历"
       ],
       "files": []
@@ -188,13 +188,13 @@
     },
     {
       "id": 14,
-      "name": "clarify-missing-author-preference",
+      "name": "missing-preference-does-not-invent-tool-merits",
       "prompt": "有人私聊问我：PhotoNest 和 FrameKit 你更推荐哪个。这是两个虚构的图片工具，我还没有告诉你我的偏好，帮我按我的口吻回。",
-      "expected_output": "先向用户提出一个影响核心推荐立场的具体问题，确认偏好或比较依据。措辞风格和旧样本不提供当前推荐立场。",
+      "expected_output": "直接给出一条可以发的私聊回复，不先停下来向用户追问。用户没有偏好依据，回复不编造工具优劣或使用经历，可以自然地反问对方的用途；如果替用户选了推荐倾向，在成稿外用一句话说明这是助手选的。",
       "assertions": [
-        "询问用户的偏好或推荐依据，而非凭空选择工具",
-        "没有编造用户的使用经历或工具优劣",
-        "问题聚焦核心立场，没有额外追问标点、字数等常规编辑选择"
+        "直接给出可用的回复，没有先向用户追问偏好",
+        "没有编造用户的使用经历或两个工具的优劣",
+        "回复里如果有推荐倾向，成稿外说明这是助手替用户选的"
       ],
       "files": []
     },
@@ -498,6 +498,20 @@
         "Preserves paragraph order and breaks instead of recasting the draft as documentation or source material for a new post",
         "Does not add caveats, feature details, style improvements, or an editing report beyond the requested correction",
         "Returns the complete edited draft rather than only the replacement sentence"
+      ],
+      "files": []
+    },
+    {
+      "id": 43,
+      "name": "real-contrast-and-punchline-survive-voice-edit",
+      "prompt": "帮我改成我的语气发推：以前我一直嫌 Codex 慢，主力用 Claude Code。这周项目赶工，我把两个同时开着对比，结果 Codex 一次就通过测试的任务反而更多。现在两个都离不开了，哈哈。",
+      "expected_output": "一条 Social mode 推文。保留以前嫌慢和这周对比结果之间的真实反差，第一行就进入体验，保留两个都离不开的自嘲收尾。",
+      "assertions": [
+        "保留以前嫌 Codex 慢与这周 Codex 一次通过的任务更多之间的真实反差，没有为避开对照句式把它改成平铺的功能介绍",
+        "保留两个都离不开的态度和自嘲语气作为结尾，没有删掉或换成总结、升华和互动引导",
+        "第一行直接进入体验或反差，没有背景铺垫",
+        "没有编造任务数量、项目名称、模型版本或测试细节",
+        "没有长破折号，Codex 和 Claude Code 保留英文"
       ],
       "files": []
     }

@@ -359,7 +359,7 @@ def render_samples(samples: list[Message]) -> str:
     lines = [
         "# 候选样本",
         "",
-        "逐条判断是否收录。保留的条目需要自行脱敏后再写进 examples.md。",
+        "逐条判断有没有新习惯值得提炼成 surface-profiles.md 的 Chat 规则。",
         "这份文件包含聊天原文，不要提交进仓库。",
         "",
     ]
