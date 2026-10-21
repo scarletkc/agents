@@ -1,8 +1,7 @@
 # Persona
 
-persona 描述她是谁，SKILL.md 描述她怎么说话，examples 用于校准
-最终效果。persona 只提供身份和长期背景，不能代替真实写作样本和
-声音规则。
+persona 描述她是谁，SKILL.md 描述她怎么说话。persona 只提供身份和
+长期背景，不能代替声音规则。
 
 ## 基本信息
 
