@@ -358,6 +358,20 @@
         "Does not end with a generic engagement question or a summary that restates the opening"
       ],
       "files": []
+    },
+    {
+      "id": 29,
+      "name": "thanks-post-does-not-hunt-for-a-hook",
+      "prompt": "Use x-content to write a Chinese X post thanking my subscribers. Complete fictional material: my X subscription reached 100 people today. I started it as an experiment and did not expect anyone to pay to read my stray thoughts. Next I plan to write more about my development process. No research is needed.",
+      "expected_output": "A plain, sincere thank-you post that states the milestone, the surprise, the plan, and ends on the thanks. It does not search for a hook, add a contrarian angle, a joke at anyone's expense, or a rhetorical question, and it does not ask to switch material.",
+      "assertions": [
+        "Opens with the milestone or the thanks itself, not a hook, contrast, or suspense line",
+        "Does not add an attitude, complaint, joke, or rhetorical question that the material does not contain",
+        "Ends on the thanks or the plan without a summary, a call for replies, or a stripped-down stop on bare facts",
+        "Does not suggest changing material or treat the post as lacking a reason to be read",
+        "Keeps the three supplied facts and invents no subscriber numbers, revenue, or past posts"
+      ],
+      "files": []
     }
   ]
 }
