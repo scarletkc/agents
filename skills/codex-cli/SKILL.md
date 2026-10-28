@@ -53,10 +53,9 @@ yourself and checking it with the project's own tests remains the normal path.
   A hand-off is worth it when you can state the goal, the files, and the
   acceptance check in a paragraph. That paragraph is also the honest test of
   whether *you* understand the change — if you cannot write it, delegating it
-  just moves the confusion downstream. What "bounded" means is
-  [`scoped-change`](https://github.com/scarletkc/agents/blob/main/skills/scoped-change/SKILL.md),
-  and it binds Codex exactly as it binds you: pass the boundary along in the
-  prompt, because Codex cannot infer where the user drew it.
+  just moves the confusion downstream. The boundary binds Codex exactly as it
+  binds you: pass it along in the prompt, because Codex cannot infer where the
+  user drew it.
 - **When the work is long, mechanical, and verifiable.** Wide renames,
   repetitive migrations, and mass edits with a green suite proving them buy
   throughput rather than insight, and they are cheap to check.
